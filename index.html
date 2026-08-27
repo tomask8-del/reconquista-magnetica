@@ -83,6 +83,7 @@
   .heading{ font-size:clamp(27px,4.6vw,37px); text-align:center; color:var(--paper); line-height:1.28; }
   .heading em{ font-style:normal; font-weight:800; color:var(--ember); }
   .hl{ background:var(--ember); color:var(--ink); padding:1px 7px; border-radius:5px; font-weight:800; white-space:nowrap; }
+  .hl-para{ background:var(--ember); color:var(--ink); padding:2px 8px; border-radius:6px; font-weight:700; line-height:2; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
   .sub{ text-align:center; color:var(--muted); margin-top:12px; font-size:18.5px; }
 
   /* ---------- options ---------- */
@@ -153,6 +154,8 @@
   .interstitial-media .im-item{ display:flex; flex-direction:column; align-items:center; gap:8px; }
   .interstitial-media .im-item svg{ width:52px; height:52px; }
   .interstitial-media .im-item span{ font-size:12.5px; color:var(--muted); text-align:center; max-width:110px; }
+  .interstitial-media.single{ margin-top:20px; margin-bottom:6px; }
+  .interstitial-media.single .im-item svg{ width:64px; height:64px; }
 
   /* ---------- loading ---------- */
   .loading-wrap{ text-align:center; }
@@ -396,16 +399,14 @@
       options:['Mais de 3 anos','1 a 3 anos','6 a 12 meses','Menos de 6 meses'] },
     { type:'scale', key:'emocional', q:'Quão <span class="hl">emocional</span> é {suaex}?', left:'Nada emocional', right:'Muito emocional' },
     { type:'interstitial', noEyebrow:true,
-      title:'Como isso funciona na vida real para reconquistar {ex}?',
-      media:[
-        {icon:'neurons', label:'Neurotransmissores'},
-        {icon:'brain', label:'Ativação cerebral'}
-      ],
-      body:[
-        'Estudos recentes revelam que neurotransmissores desempenham um papel fundamental na atração, no amor e na paixão, influenciando diretamente como os relacionamentos evoluem.',
-        'Esses neurotransmissores são conhecidos como dopamina (desejo) e ocitocina (amor e vínculo emocional), e estão por trás dos sentimentos mais profundos de amor, conexão e desejo.',
-        'Quando você sabe como ativar esse poderoso mecanismo no cérebro de quem você quer reconquistar...',
-        '{Ex} ficará totalmente {obcecada} por você, dispost{o} a fazer qualquer coisa para estar com você novamente!'
+      title:'Como isso funciona na vida real para <span class="hl">reconquistar {ex}</span>?',
+      blocks:[
+        { type:'p', text:'Estudos recentes revelam que neurotransmissores desempenham um papel fundamental na atração, no amor e na paixão, influenciando diretamente como os relacionamentos evoluem.' },
+        { type:'media', icon:'neurons', label:'Neurotransmissores' },
+        { type:'p', hl:true, text:'Esses neurotransmissores são conhecidos como dopamina (desejo) e ocitocina (amor e vínculo emocional), e estão por trás dos sentimentos mais profundos de amor, conexão e desejo.' },
+        { type:'media', icon:'brain', label:'Ativação cerebral' },
+        { type:'p', text:'Quando você sabe como ativar esse poderoso mecanismo no cérebro de quem você quer reconquistar...' },
+        { type:'p', hl:true, text:'{Ex} ficará totalmente {obcecada} por você, dispost{o} a fazer qualquer coisa para estar com você novamente!' }
       ] },
     { type:'single', key:'dor', q:'Qual foi a parte mais difícil do término?',
       options:[
@@ -626,16 +627,26 @@
   }
 
   function renderInterstitial(wrap, step){
-    const mediaHtml = step.media ? `
-      <div class="interstitial-media">
-        ${step.media.map(m=>`<div class="im-item">${icon(m.icon)}<span>${t(m.label)}</span></div>`).join('')}
-      </div>` : '';
+    let contentHtml;
+    if(step.blocks){
+      contentHtml = step.blocks.map(b=>{
+        if(b.type === 'media'){
+          return `<div class="interstitial-media single"><div class="im-item">${icon(b.icon)}<span>${t(b.label)}</span></div></div>`;
+        }
+        return b.hl ? `<p><span class="hl-para">${t(b.text)}</span></p>` : `<p>${t(b.text)}</p>`;
+      }).join('');
+    } else {
+      const mediaHtml = step.media ? `
+        <div class="interstitial-media">
+          ${step.media.map(m=>`<div class="im-item">${icon(m.icon)}<span>${t(m.label)}</span></div>`).join('')}
+        </div>` : '';
+      contentHtml = mediaHtml + step.body.map(p=>`<p>${t(p)}</p>`).join('');
+    }
     wrap.innerHTML = `
       <div class="interstitial">
         ${step.noEyebrow ? '' : `<span class="eyebrow">${CONFIG.productName}</span>`}
         <h2 class="heading">${t(step.title)}</h2>
-        ${mediaHtml}
-        ${step.body.map(p=>`<p>${t(p)}</p>`).join('')}
+        ${contentHtml}
         <button class="btn-continue">Continuar</button>
       </div>
     `;
