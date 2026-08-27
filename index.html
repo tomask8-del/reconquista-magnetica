@@ -347,8 +347,8 @@
   // e usa esses tokens pra montar as frases sobre a pessoa que o usuário
   // quer reconquistar.
   const PRONOUNS = {
-    m: { ex:'ela', Ex:'Ela', o:'a', O:'A', a:'a', traida:'traída', obcecada:'obcecada', motivada:'motivada', suaex:'sua ex' },
-    f: { ex:'ele', Ex:'Ele', o:'o', O:'O', a:'o', traida:'traído', obcecada:'obcecado', motivada:'motivado', suaex:'seu ex' }
+    m: { ex:'ela', Ex:'Ela', o:'a', O:'A', a:'a', traida:'traída', obcecada:'obcecada', motivada:'motivada', suaex:'sua ex', deex:'dela' },
+    f: { ex:'ele', Ex:'Ele', o:'o', O:'O', a:'o', traida:'traído', obcecada:'obcecado', motivada:'motivado', suaex:'seu ex', deex:'dele' }
   };
 
   let state = { genderKey:'m', answers:{}, i:0 };
@@ -388,7 +388,7 @@
       options:[
         {e:'😰',l:'Vivíamos discutindo'},
         {e:'😫',l:'{Ex} disse que o sentimento tinha mudado'},
-        {e:'💔',l:'Houve uma traição de {ex}'},
+        {e:'💔',l:'Houve uma traição {deex}'},
         {e:'😔',l:'Eu cometi uma traição'},
         {e:'🤦',l:'Outro motivo'}
       ] },
