@@ -82,6 +82,7 @@
   }
   .heading{ font-size:clamp(27px,4.6vw,37px); text-align:center; color:var(--paper); line-height:1.28; }
   .heading em{ font-style:normal; font-weight:800; color:var(--ember); }
+  .hl{ background:var(--ember); color:var(--ink); padding:1px 7px; border-radius:5px; font-weight:800; white-space:nowrap; }
   .sub{ text-align:center; color:var(--muted); margin-top:12px; font-size:18.5px; }
 
   /* ---------- options ---------- */
@@ -148,6 +149,10 @@
 
   /* ---------- interstitial ---------- */
   .interstitial p{ color:var(--text-body); font-size:19px; margin-top:16px; line-height:1.65; text-align:center; }
+  .interstitial-media{ display:flex; justify-content:center; gap:28px; margin-top:22px; }
+  .interstitial-media .im-item{ display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .interstitial-media .im-item svg{ width:52px; height:52px; }
+  .interstitial-media .im-item span{ font-size:12.5px; color:var(--muted); text-align:center; max-width:110px; }
 
   /* ---------- loading ---------- */
   .loading-wrap{ text-align:center; }
@@ -342,8 +347,8 @@
   // e usa esses tokens pra montar as frases sobre a pessoa que o usuário
   // quer reconquistar.
   const PRONOUNS = {
-    m: { ex:'ela', Ex:'Ela', o:'a', O:'A', a:'a', traida:'traída', obcecada:'obcecada', motivada:'motivada' },
-    f: { ex:'ele', Ex:'Ele', o:'o', O:'O', a:'o', traida:'traído', obcecada:'obcecado', motivada:'motivado' }
+    m: { ex:'ela', Ex:'Ela', o:'a', O:'A', a:'a', traida:'traída', obcecada:'obcecada', motivada:'motivada', suaex:'sua ex' },
+    f: { ex:'ele', Ex:'Ele', o:'o', O:'O', a:'o', traida:'traído', obcecada:'obcecado', motivada:'motivado', suaex:'seu ex' }
   };
 
   let state = { genderKey:'m', answers:{}, i:0 };
@@ -355,7 +360,9 @@
 
   function icon(name){
     const icons = {
-      heart: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.35-9.5-9C.8 7.2 2.6 3.5 6.3 3.1 8.6 2.9 10.7 4.2 12 6.1 13.3 4.2 15.4 2.9 17.7 3.1c3.7.4 5.5 4.1 3.8 7.9C19 15.65 12 20 12 20z" stroke="var(--ember)" stroke-width="1.4"/></svg>'
+      heart: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.35-9.5-9C.8 7.2 2.6 3.5 6.3 3.1 8.6 2.9 10.7 4.2 12 6.1 13.3 4.2 15.4 2.9 17.7 3.1c3.7.4 5.5 4.1 3.8 7.9C19 15.65 12 20 12 20z" stroke="var(--ember)" stroke-width="1.4"/></svg>',
+      neurons: '<svg viewBox="0 0 64 64" fill="none"><g stroke="var(--ember)" stroke-width="1.6" stroke-linecap="round"><line x1="14" y1="46" x2="28" y2="30"/><line x1="28" y1="30" x2="46" y2="20"/><line x1="28" y1="30" x2="40" y2="44"/><line x1="46" y1="20" x2="54" y2="34"/><line x1="14" y1="46" x2="10" y2="30"/></g><g fill="var(--ember)"><circle cx="14" cy="46" r="4"/><circle cx="28" cy="30" r="4.5"/><circle cx="46" cy="20" r="4"/><circle cx="40" cy="44" r="3.5"/><circle cx="54" cy="34" r="3.5"/><circle cx="10" cy="30" r="3"/></g></svg>',
+      brain: '<svg viewBox="0 0 64 64" fill="none"><path d="M20 14c-5 0-9 4-9 9 0-1-4 1-4 6 0 4 3 7 3 7-2 2-3 5-3 8 0 6 5 11 11 11h1c1 3 4 5 7 5h6c3 0 6-2 7-5h1c6 0 11-5 11-11 0-3-1-6-3-8 0 0 3-3 3-7 0-5-4-7-4-6 0-5-4-9-9-9-2 0-4 1-6 2-2-2-4-3-7-3s-5 1-7 3c-2-1-4-2-6-2z" stroke="var(--ember)" stroke-width="1.6" stroke-linejoin="round"/><path d="M32 14v41M20 14c2 3 2 7 0 10M44 14c-2 3-2 7 0 10M14 29c3 1 6 1 8 0M50 29c-3 1-6 1-8 0M14 43c3-1 6-1 8 0M50 43c-3-1-6-1-8 0" stroke="var(--ember)" stroke-width="1.2" stroke-linecap="round"/></svg>'
     };
     return icons[name] || '';
   }
@@ -373,30 +380,32 @@
     { type:'intro' },
     { type:'single', key:'idade', q:'Qual é a sua idade?',
       options:['18–28','29–38','39–48','49 anos ou mais'] },
-    { type:'single', key:'separados', q:'Há quanto tempo vocês estão separados?',
+    { type:'single', key:'separados', q:'Há quanto tempo vocês estão <span class="hl">separados</span>?',
       options:['Menos de uma semana','Cerca de um mês','2 a 6 meses','Mais de 6 meses'] },
-    { type:'single', key:'termino', q:'Como foi o término?',
+    { type:'single', key:'termino', q:'Como foi o <span class="hl">término</span>?',
       options:['{Ex} terminou comigo','Eu terminei com {ex}','Foi uma decisão dos dois'] },
-    { type:'multi', key:'razoes', q:'Quais foram as principais razões do término?', sub:'Selecione todas que se aplicam',
+    { type:'multi', key:'razoes', q:'Quais foram as <span class="hl">principais razões</span> do término?', sub:'Selecione todas que se aplicam',
       options:[
         {e:'😰',l:'Vivíamos discutindo'},
         {e:'😫',l:'{Ex} disse que o sentimento tinha mudado'},
-        {e:'🎯',l:'Queríamos coisas diferentes pra vida'},
         {e:'💔',l:'Houve uma traição de {ex}'},
         {e:'😔',l:'Eu cometi uma traição'},
-        {e:'😒',l:'Pressão externa (família, amigos)'},
         {e:'🤦',l:'Outro motivo'}
       ] },
-    { type:'single', key:'duracao', q:'Por quanto tempo vocês ficaram juntos?', arrow:true,
+    { type:'single', key:'duracao', q:'Por quanto tempo vocês ficaram <span class="hl">juntos</span>?', arrow:true,
       options:['Mais de 3 anos','1 a 3 anos','6 a 12 meses','Menos de 6 meses'] },
-    { type:'scale', key:'emocional', q:'De 1 a 4, quão emocional {ex} costuma ser?', left:'Nada emocional', right:'Muito emocional' },
-    { type:'interstitial',
-      title:'O que acontece de verdade quando duas pessoas se reconectam',
+    { type:'scale', key:'emocional', q:'Quão <span class="hl">emocional</span> é {suaex}?', left:'Nada emocional', right:'Muito emocional' },
+    { type:'interstitial', noEyebrow:true,
+      title:'Como isso funciona na vida real para reconquistar {ex}?',
+      media:[
+        {icon:'neurons', label:'Neurotransmissores'},
+        {icon:'brain', label:'Ativação cerebral'}
+      ],
       body:[
-        'Ligação afetiva não é sorte, é biologia. Dois neurotransmissores comandam essa parte da história: dopamina (o desejo) e ocitocina (o vínculo).',
-        'São eles que explicam por que certas lembranças, certos gestos e certas conversas reacendem uma proximidade que parecia apagada, mesmo depois de semanas de silêncio.',
-        'O problema é que a maioria das pessoas tenta reverter isso na base da tentativa e erro: uma mensagem aqui, um pedido de desculpas ali, sem uma direção clara.',
-        'Quando você entende como reativar isso com naturalidade, sem forçar e sem implorar, a reaproximação deixa de depender de sorte e passa a seguir um caminho.'
+        'Estudos recentes revelam que neurotransmissores desempenham um papel fundamental na atração, no amor e na paixão, influenciando diretamente como os relacionamentos evoluem.',
+        'Esses neurotransmissores são conhecidos como dopamina (desejo) e ocitocina (amor e vínculo emocional), e estão por trás dos sentimentos mais profundos de amor, conexão e desejo.',
+        'Quando você sabe como ativar esse poderoso mecanismo no cérebro de quem você quer reconquistar...',
+        '{Ex} ficará totalmente {obcecada} por você, dispost{o} a fazer qualquer coisa para estar com você novamente!'
       ] },
     { type:'single', key:'dor', q:'Qual foi a parte mais difícil do término?',
       options:[
@@ -617,10 +626,15 @@
   }
 
   function renderInterstitial(wrap, step){
+    const mediaHtml = step.media ? `
+      <div class="interstitial-media">
+        ${step.media.map(m=>`<div class="im-item">${icon(m.icon)}<span>${t(m.label)}</span></div>`).join('')}
+      </div>` : '';
     wrap.innerHTML = `
       <div class="interstitial">
-        <span class="eyebrow">${CONFIG.productName}</span>
+        ${step.noEyebrow ? '' : `<span class="eyebrow">${CONFIG.productName}</span>`}
         <h2 class="heading">${t(step.title)}</h2>
+        ${mediaHtml}
         ${step.body.map(p=>`<p>${t(p)}</p>`).join('')}
         <button class="btn-continue">Continuar</button>
       </div>
