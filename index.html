@@ -104,14 +104,16 @@
   }
   .option.selected .check{ border-color:var(--ember); background:var(--ember); color:var(--on-ember); }
 
-  .gender-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:30px; }
+  .gender-grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-top:30px; }
   .gender-card{
     background:var(--ink-raised); border:1.5px solid var(--line); border-radius:var(--radius-lg);
     padding:0 0 16px; overflow:hidden; display:flex; flex-direction:column; align-items:center; gap:10px;
     color:var(--paper); transition:border-color .15s, background .15s;
   }
   .gender-card:hover{ border-color:var(--ember-deep); }
-  .gender-card img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+  .gender-card img{ width:100%; aspect-ratio:21/9; object-fit:cover; object-position:top; display:block; }
+  .gender-card .label-row{ display:flex; align-items:center; justify-content:center; gap:9px; }
+  .gender-card .radio-ind{ width:15px; height:15px; border-radius:50%; border:2px solid var(--ember); flex-shrink:0; }
   .gender-card .label{ font-weight:600; font-size:15px; }
 
   .warn-box{
@@ -527,13 +529,12 @@
 
   function renderIntro(wrap){
     wrap.innerHTML = `
-      ${brandHtml()}
       <h1 class="heading">Não deixe quem você ama <em>sair da sua vida</em> de vez.</h1>
-      <p class="sub">Faça este teste rápido de 1 minuto e descubra seu plano de reaproximação:</p>
+      <p class="sub">Descubra seu plano de reaproximação em 1 minuto:</p>
       <h3 class="heading" style="font-size:17px;margin-top:34px;">Pra começar, qual é o seu gênero?</h3>
       <div class="gender-grid">
-        <button class="gender-card" data-g="m">${male_avatar}<span class="label">Masculino</span></button>
-        <button class="gender-card" data-g="f">${female_avatar}<span class="label">Feminino</span></button>
+        <button class="gender-card" data-g="m">${male_avatar}<span class="label-row"><span class="radio-ind"></span><span class="label">Masculino</span></span></button>
+        <button class="gender-card" data-g="f">${female_avatar}<span class="label-row"><span class="radio-ind"></span><span class="label">Feminino</span></span></button>
       </div>
       <div class="warn-box">
         <span class="tag">Aviso</span>
