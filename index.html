@@ -147,6 +147,10 @@
   }
   .btn-continue:active{ transform:scale(.98); }
   .btn-continue:disabled{ opacity:.35; box-shadow:none; }
+  .btn-continue.btn-green{
+    background:linear-gradient(180deg, #2ecc71, #1e9e56); color:#ffffff;
+    box-shadow:0 12px 30px -12px rgba(46,204,113,0.55);
+  }
   .btn-ghost-note{ text-align:center; font-size:14.5px; color:var(--muted-2); margin-top:10px; }
 
   /* ---------- interstitial ---------- */
@@ -356,8 +360,8 @@
   // e usa esses tokens pra montar as frases sobre a pessoa que o usuário
   // quer reconquistar.
   const PRONOUNS = {
-    m: { ex:'ela', Ex:'Ela', o:'a', O:'A', a:'a', traida:'traída', obcecada:'obcecada', motivada:'motivada', suaex:'sua ex', deex:'dela' },
-    f: { ex:'ele', Ex:'Ele', o:'o', O:'O', a:'o', traida:'traído', obcecada:'obcecado', motivada:'motivado', suaex:'seu ex', deex:'dele' }
+    m: { ex:'ela', Ex:'Ela', o:'a', O:'A', a:'a', traida:'traída', obcecada:'obcecada', motivada:'motivada', suaex:'sua ex', Suaex:'Sua ex', deex:'dela', ua:'o', pessoa:'homem', la:'la' },
+    f: { ex:'ele', Ex:'Ele', o:'o', O:'O', a:'o', traida:'traído', obcecada:'obcecado', motivada:'motivado', suaex:'seu ex', Suaex:'Seu ex', deex:'dele', ua:'a', pessoa:'mulher', la:'lo' }
   };
 
   let state = { genderKey:'m', answers:{}, i:0 };
@@ -757,19 +761,22 @@
   function renderFinalStep(wrap){
     wrap.innerHTML = `
       ${brandHtml()}
-      <h2 class="heading">Seu plano de 21 dias pra reconstruir essa conexão está pronto.</h2>
+      <h2 class="heading"><span class="hl">Seu plano de 21 dias</span> para reconquistar {suaex} e fazer {ex} se apaixonar por você de novo está pronto!</h2>
       <img src="${IMG_GRAFICO}" alt="Linha do tempo: evolução esperada nos 21 dias do plano" style="width:100%;border-radius:var(--radius-md);margin-top:30px;display:block;" />
+      <h3 class="heading" style="font-size:21px;margin-top:30px;">O que vai acontecer:</h3>
       <ul class="checklist">
-        <li><span class="ck">✓</span> {Ex} volta a pensar em você com mais frequência.</li>
-        <li><span class="ck">✓</span> As conversas voltam a fluir sem climão nem cobrança.</li>
-        <li><span class="ck">✓</span> Você reconstrói sua autoconfiança pelo caminho, com ou sem volta.</li>
-        <li><span class="ck">✓</span> Vocês reabrem espaço pra uma conexão genuína, no tempo certo.</li>
+        <li><span class="ck">✓</span> {Suaex} vai começar a pensar em você o tempo todo e sentir sua falta. {Ex} vai te procurar, mandar mensagens, e finalmente se abrir para você novamente.</li>
+        <li><span class="ck">✓</span> {Ex} se sentirá atraíd{o} por você, incapaz de se controlar. {Ex} verá você como {ua} únic{ua} {pessoa} capaz de satisfazê-{la} emocional e fisicamente.</li>
+        <li><span class="ck">✓</span> {Ex} voltará para sua cama, desesperad{o} para estar com você.</li>
+        <li><span class="ck">✓</span> Você construirá uma confiança inabalável e autoestima indestrutível. Você reconstruirá uma conexão intensa e apaixonada que é impossível de quebrar.</li>
+        <li><span class="ck">✓</span> {Ex} vai querer estar ao seu lado novamente como nunca antes...</li>
       </ul>
-      <h3 class="heading" style="font-size:21.5px;margin-top:34px;">Você está pronto(a) pra começar?</h3>
-      <button class="btn-continue">Sim, quero {ex} de volta</button>
+      <h3 class="heading" style="font-size:21.5px;margin-top:34px;">Você está pronto para reconquistá-{la}?</h3>
+      <button class="btn-continue btn-green">Sim, quero {ex} de volta</button>
     `;
     wrap.querySelector('.btn-continue').innerHTML = t(wrap.querySelector('.btn-continue').textContent);
     wrap.querySelectorAll('.checklist li').forEach(li=> li.innerHTML = t(li.innerHTML));
+    wrap.querySelectorAll('h2.heading, h3.heading').forEach(h=> h.innerHTML = t(h.innerHTML));
     wrap.querySelector('.btn-continue').addEventListener('click', goNext);
   }
 
