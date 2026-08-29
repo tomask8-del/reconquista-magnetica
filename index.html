@@ -499,7 +499,7 @@
       options:['Menos de uma semana','Cerca de um mês','2 a 6 meses','Mais de 6 meses'] },
     { type:'single', key:'termino', q:'Como foi o <span class="hl">término</span>?',
       options:['{Ex} terminou comigo','Eu terminei com {ex}','Foi uma decisão dos dois'] },
-    { type:'multi', key:'razoes', q:'Quais foram as <span class="hl">principais razões</span> do término?', sub:'Selecione todas que se aplicam',
+    { type:'single', key:'razoes', q:'Qual foi a <span class="hl">principal razão</span> do término?',
       options:[
         {e:'😰',l:'Vivíamos discutindo'},
         {e:'😫',l:'{Ex} disse que o sentimento tinha mudado'},
@@ -544,7 +544,7 @@
         { type:'p', text:'Cada dia que você passa sem fazer nada, ou toma as decisões erradas, <span class="redbold">você está diminuindo suas chances de ter {ex} de volta.</span>' },
         { type:'p', text:'E arriscando perder {ex} pra sempre!' }
       ] },
-    { type:'multi', key:'memorias', q:'Que tipo de <span class="hl">lembrança</span> mais marca essa relação?',
+    { type:'single', key:'memorias', q:'Que tipo de <span class="hl">lembrança</span> mais marca essa relação?',
       options:[
         {e:'🎬',l:'Séries ou filmes que assistiam juntos'},
         {e:'🎵',l:'Uma música de vocês'},
@@ -552,7 +552,7 @@
         {e:'🏝️',l:'Onde se conheceram'},
         {e:'🎁',l:'Um objeto ou presente especial'}
       ] },
-    { type:'multi', key:'tempo_juntos', q:'Como vocês costumavam <span class="hl">passar o tempo juntos?</span>',
+    { type:'single', key:'tempo_juntos', q:'Como vocês costumavam <span class="hl">passar o tempo juntos?</span>',
       options:[
         {e:'🏡',l:'Mais em casa, tranquilos'},
         {e:'🧳',l:'Viajando, explorando lugares novos'},
@@ -568,7 +568,7 @@
         {e:'😌',l:'Um pouco nervoso'},
         {e:'😬',l:'Meio sem graça, se somos sinceros'}
       ] },
-    { type:'multi', key:'qualidades', q:'Como você descreveria as qualidades {deex}?',
+    { type:'single', key:'qualidades', q:'Qual é a <span class="hl">principal qualidade</span> {deex}?',
       options:[
         {e:'👐',l:'É atencios{o}'},
         {e:'🧠',l:'É inteligente'},
