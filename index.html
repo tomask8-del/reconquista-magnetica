@@ -192,13 +192,15 @@
   }
 
   /* ---------- oxytocin screen tweaks ---------- */
-  .interstitial.compact.oxi-screen{ gap:10px; }
-  .interstitial.compact.oxi-screen .btn-continue{ margin-bottom:8px; }
+  .interstitial.compact.oxi-screen{ justify-content:center; gap:16px; }
+  .interstitial.compact.oxi-screen .btn-continue{ margin-top:8px; margin-bottom:6px; }
   @media (max-height:760px){
     .interstitial.compact .interstitial-media.media-big .im-item img{ max-width:340px !important; }
+    .interstitial.compact.oxi-screen{ gap:10px; }
   }
   @media (max-height:620px){
     .interstitial.compact .interstitial-media.media-big .im-item img{ max-width:250px !important; }
+    .interstitial.compact.oxi-screen{ gap:6px; }
   }
 
   /* ---------- "ela ficará louca" screen tweaks (longer highlighted paragraph) ---------- */
