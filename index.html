@@ -871,7 +871,6 @@
 
   function renderProgressLoading(wrap){
     wrap.innerHTML = `
-      ${brandHtml()}
       <h2 class="heading" style="font-size:23.5px;">Montando o seu plano personalizado</h2>
       <div class="loading-lines" style="margin-top:30px;">
         <div class="loading-line">
@@ -889,9 +888,9 @@
       </div>
     `;
     const bars = [
-      {el:wrap.querySelector('#bar1'), v:wrap.querySelector('.v1'), delay:0,    dur:1100},
-      {el:wrap.querySelector('#bar2'), v:wrap.querySelector('.v2'), delay:900,  dur:1300},
-      {el:wrap.querySelector('#bar3'), v:wrap.querySelector('.v3'), delay:2000, dur:1400}
+      {el:wrap.querySelector('#bar1'), v:wrap.querySelector('.v1'), delay:0,    dur:1800},
+      {el:wrap.querySelector('#bar2'), v:wrap.querySelector('.v2'), delay:1450, dur:2100},
+      {el:wrap.querySelector('#bar3'), v:wrap.querySelector('.v3'), delay:3200, dur:2250}
     ];
     bars.forEach(b=>{
       setTimeout(()=>{
@@ -904,7 +903,7 @@
         }, 60);
       }, b.delay);
     });
-    setTimeout(goNext, 3600);
+    setTimeout(goNext, 5650);
   }
 
   function renderFinalStep(wrap, step){
