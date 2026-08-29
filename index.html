@@ -342,35 +342,43 @@
   .grafico-img{ width:100%; border-radius:var(--radius-md); margin-top:30px; display:block; }
   .fs-sub{ font-size:21px; margin-top:30px; }
   .fs-sub2{ font-size:21.5px; margin-top:34px; }
+  .fs-title-sub{ display:inline-block; font-size:18px; font-weight:400; margin-top:10px; max-width:280px; }
   .finalstep-wrap.compact{
     display:flex; flex-direction:column; min-height:calc(100vh - 48px);
     justify-content:space-between; gap:10px;
   }
   .finalstep-wrap.compact .heading{ margin-top:0; }
-  .finalstep-wrap.compact .grafico-img{ margin-top:0; max-height:170px; object-fit:contain; }
+  .finalstep-wrap.compact .fs-title-sub{ font-size:16.5px; margin-top:8px; max-width:310px; }
+  .finalstep-wrap.compact .grafico-img{ margin-top:0; max-height:200px; object-fit:contain; }
   .finalstep-wrap.compact .fs-sub{ margin-top:0; font-size:18.5px; }
   .finalstep-wrap.compact .fs-sub2{ margin-top:0; font-size:19px; }
   .finalstep-wrap.compact .checklist{ margin-top:0; gap:8px; }
   .finalstep-wrap.compact .checklist li{ font-size:15.5px; line-height:1.36; }
-  .finalstep-wrap.compact .btn-continue{ margin-top:0; }
+  .finalstep-wrap.compact .btn-continue{ margin-top:0; margin-bottom:14px; }
   @media (max-height:800px){
-    .finalstep-wrap.compact .grafico-img{ max-height:130px; }
+    .finalstep-wrap.compact .fs-title-sub{ font-size:15.5px; margin-top:6px; max-width:280px; }
+    .finalstep-wrap.compact .grafico-img{ max-height:155px; }
     .finalstep-wrap.compact .checklist li{ font-size:14.5px; line-height:1.3; }
     .finalstep-wrap.compact .fs-sub, .finalstep-wrap.compact .fs-sub2{ font-size:17.5px; }
+    .finalstep-wrap.compact .btn-continue{ margin-bottom:10px; }
   }
   @media (max-height:680px){
     .finalstep-wrap.compact{ gap:6px; }
-    .finalstep-wrap.compact .grafico-img{ max-height:100px; }
+    .finalstep-wrap.compact .fs-title-sub{ font-size:14px; margin-top:5px; max-width:260px; }
+    .finalstep-wrap.compact .grafico-img{ max-height:120px; }
     .finalstep-wrap.compact .checklist{ gap:5px; }
     .finalstep-wrap.compact .checklist li{ font-size:13px; line-height:1.26; }
     .finalstep-wrap.compact .fs-sub, .finalstep-wrap.compact .fs-sub2{ font-size:16px; }
     .finalstep-wrap.compact .heading{ font-size:22px; }
+    .finalstep-wrap.compact .btn-continue{ margin-bottom:8px; }
   }
   @media (max-height:600px){
-    .finalstep-wrap.compact .grafico-img{ max-height:76px; }
+    .finalstep-wrap.compact .fs-title-sub{ font-size:12.5px; margin-top:4px; max-width:240px; }
+    .finalstep-wrap.compact .grafico-img{ max-height:92px; }
     .finalstep-wrap.compact .checklist li{ font-size:11.5px; line-height:1.22; }
     .finalstep-wrap.compact .fs-sub, .finalstep-wrap.compact .fs-sub2{ font-size:14.5px; }
     .finalstep-wrap.compact .heading{ font-size:19.5px; }
+    .finalstep-wrap.compact .btn-continue{ margin-bottom:6px; }
   }
 
   /* ============================================================
@@ -909,7 +917,7 @@
   function renderFinalStep(wrap, step){
     wrap.innerHTML = `
       <div class="finalstep-wrap${step && step.compact ? ' compact' : ''}">
-        <h2 class="heading"><span class="hl">Seu plano de 21 dias</span><br>para reconquistar {suaex} e fazer {ex} se apaixonar por você de novo está pronto!</h2>
+        <h2 class="heading"><span class="hl">Seu plano de 21 dias</span><br><span class="fs-title-sub">para reconquistar {suaex} e fazer {ex} se apaixonar por você de novo está pronto!</span></h2>
         <img src="${IMG_GRAFICO}" alt="Linha do tempo: evolução esperada nos 21 dias do plano" class="grafico-img" />
         <h3 class="heading fs-sub">O que vai acontecer:</h3>
         <ul class="checklist">
