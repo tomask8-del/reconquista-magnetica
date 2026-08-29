@@ -95,7 +95,7 @@
     padding:16px 18px; display:flex; align-items:center; gap:14px; text-align:left;
     color:var(--paper); font-size:19px; font-weight:500; transition:border-color .15s, background .15s, transform .1s;
   }
-  .option:hover{ border-color:var(--ember-deep); background:var(--ink-raised-2); }
+  @media (hover:hover) and (pointer:fine){ .option:hover{ border-color:var(--ember-deep); background:var(--ink-raised-2); } }
   .option:active{ transform:scale(.99); }
   .option.selected{ border-color:var(--ember); background:var(--ember-soft); }
   .option .emoji{ font-size:27px; line-height:1; flex-shrink:0; }
@@ -113,7 +113,7 @@
     padding:0 0 16px; overflow:hidden; display:flex; flex-direction:column; align-items:center; gap:10px;
     color:var(--paper); transition:border-color .15s, background .15s;
   }
-  .gender-card:hover{ border-color:var(--ember-deep); }
+  @media (hover:hover) and (pointer:fine){ .gender-card:hover{ border-color:var(--ember-deep); } }
   .gender-card img{ width:100%; aspect-ratio:21/9; object-fit:cover; object-position:top; display:block; }
   .gender-card .label-row{ display:flex; align-items:center; justify-content:center; gap:9px; }
   .gender-card .radio-ind{ width:15px; height:15px; border-radius:50%; border:2px solid var(--ember); flex-shrink:0; }
@@ -135,7 +135,7 @@
     width:56px; height:56px; border-radius:50%; border:1.5px solid var(--line); background:var(--ink-raised);
     color:var(--paper); font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:22.5px; font-weight:600;
   }
-  .scale-btn:hover{ border-color:var(--ember-deep); }
+  @media (hover:hover) and (pointer:fine){ .scale-btn:hover{ border-color:var(--ember-deep); } }
   .scale-gradient{ height:6px; border-radius:99px; margin-top:18px; background:linear-gradient(90deg, var(--danger), var(--ember), var(--good)); }
   .scale-labels{ display:flex; justify-content:space-between; margin-top:10px; font-size:15.5px; color:var(--muted); }
 
