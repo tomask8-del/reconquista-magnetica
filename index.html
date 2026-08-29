@@ -822,11 +822,11 @@
     const pctEl = wrap.querySelector('#ring-pct');
     let pct = 0;
     const timer = setInterval(()=>{
-      pct += Math.random()*14 + 6;
-      if(pct >= 100){ pct = 100; clearInterval(timer); setTimeout(goNext, 450); }
+      pct += Math.random()*8 + 6;
+      if(pct >= 100){ pct = 100; clearInterval(timer); setTimeout(goNext, 600); }
       fill.style.strokeDashoffset = String(327 - (327*pct/100));
       pctEl.textContent = Math.round(pct) + '%';
-    }, 260);
+    }, 380);
   }
 
   function renderThankyou(wrap){
