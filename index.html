@@ -301,6 +301,41 @@
   .checklist li{ display:flex; gap:10px; font-size:18px; color:var(--text-body); line-height:1.5; }
   .checklist li .ck{ color:var(--ember); flex-shrink:0; }
 
+  /* ---------- final step (21-day plan) ---------- */
+  .grafico-img{ width:100%; border-radius:var(--radius-md); margin-top:30px; display:block; }
+  .fs-sub{ font-size:21px; margin-top:30px; }
+  .fs-sub2{ font-size:21.5px; margin-top:34px; }
+  .finalstep-wrap.compact{
+    display:flex; flex-direction:column; min-height:calc(100vh - 48px);
+    justify-content:space-between; gap:10px;
+  }
+  .finalstep-wrap.compact .heading{ margin-top:0; }
+  .finalstep-wrap.compact .grafico-img{ margin-top:0; max-height:170px; object-fit:contain; }
+  .finalstep-wrap.compact .fs-sub{ margin-top:0; font-size:18.5px; }
+  .finalstep-wrap.compact .fs-sub2{ margin-top:0; font-size:19px; }
+  .finalstep-wrap.compact .checklist{ margin-top:0; gap:8px; }
+  .finalstep-wrap.compact .checklist li{ font-size:15.5px; line-height:1.36; }
+  .finalstep-wrap.compact .btn-continue{ margin-top:0; }
+  @media (max-height:800px){
+    .finalstep-wrap.compact .grafico-img{ max-height:130px; }
+    .finalstep-wrap.compact .checklist li{ font-size:14.5px; line-height:1.3; }
+    .finalstep-wrap.compact .fs-sub, .finalstep-wrap.compact .fs-sub2{ font-size:17.5px; }
+  }
+  @media (max-height:680px){
+    .finalstep-wrap.compact{ gap:6px; }
+    .finalstep-wrap.compact .grafico-img{ max-height:100px; }
+    .finalstep-wrap.compact .checklist{ gap:5px; }
+    .finalstep-wrap.compact .checklist li{ font-size:13px; line-height:1.26; }
+    .finalstep-wrap.compact .fs-sub, .finalstep-wrap.compact .fs-sub2{ font-size:16px; }
+    .finalstep-wrap.compact .heading{ font-size:22px; }
+  }
+  @media (max-height:600px){
+    .finalstep-wrap.compact .grafico-img{ max-height:76px; }
+    .finalstep-wrap.compact .checklist li{ font-size:11.5px; line-height:1.22; }
+    .finalstep-wrap.compact .fs-sub, .finalstep-wrap.compact .fs-sub2{ font-size:14.5px; }
+    .finalstep-wrap.compact .heading{ font-size:19.5px; }
+  }
+
   /* ============================================================
      LANDING (página de oferta final)
      ============================================================ */
@@ -564,7 +599,7 @@
       left:'Ainda em dúvida', right:'Estou decidido(a)',
       note:'Esse método funciona melhor pra quem está realmente comprometido em seguir os passos, não pra quem busca atalho.' },
     { type:'progress' },
-    { type:'finalstep' },
+    { type:'finalstep', topAlign:true, compact:true },
     { type:'landing' }
   ];
 
@@ -832,21 +867,22 @@
     setTimeout(goNext, 3600);
   }
 
-  function renderFinalStep(wrap){
+  function renderFinalStep(wrap, step){
     wrap.innerHTML = `
-      ${brandHtml()}
-      <h2 class="heading"><span class="hl">Seu plano de 21 dias</span> para reconquistar {suaex} e fazer {ex} se apaixonar por você de novo está pronto!</h2>
-      <img src="${IMG_GRAFICO}" alt="Linha do tempo: evolução esperada nos 21 dias do plano" style="width:100%;border-radius:var(--radius-md);margin-top:30px;display:block;" />
-      <h3 class="heading" style="font-size:21px;margin-top:30px;">O que vai acontecer:</h3>
-      <ul class="checklist">
-        <li><span class="ck">✓</span> {Suaex} vai começar a pensar em você o tempo todo e sentir sua falta. {Ex} vai te procurar, mandar mensagens, e finalmente se abrir para você novamente.</li>
-        <li><span class="ck">✓</span> {Ex} se sentirá atraíd{o} por você, incapaz de se controlar. {Ex} verá você como {ua} únic{ua} {pessoa} capaz de satisfazê-{la} emocional e fisicamente.</li>
-        <li><span class="ck">✓</span> {Ex} voltará para sua cama, desesperad{o} para estar com você.</li>
-        <li><span class="ck">✓</span> Você construirá uma confiança inabalável e autoestima indestrutível. Você reconstruirá uma conexão intensa e apaixonada que é impossível de quebrar.</li>
-        <li><span class="ck">✓</span> {Ex} vai querer estar ao seu lado novamente como nunca antes...</li>
-      </ul>
-      <h3 class="heading" style="font-size:21.5px;margin-top:34px;">Você está pronto para reconquistá-{la}?</h3>
-      <button class="btn-continue btn-green">Sim, quero {ex} de volta</button>
+      <div class="finalstep-wrap${step && step.compact ? ' compact' : ''}">
+        <h2 class="heading"><span class="hl">Seu plano de 21 dias</span><br>para reconquistar {suaex} e fazer {ex} se apaixonar por você de novo está pronto!</h2>
+        <img src="${IMG_GRAFICO}" alt="Linha do tempo: evolução esperada nos 21 dias do plano" class="grafico-img" />
+        <h3 class="heading fs-sub">O que vai acontecer:</h3>
+        <ul class="checklist">
+          <li><span class="ck">✓</span> {Suaex} vai pensar em você o tempo todo e vai te procurar.</li>
+          <li><span class="ck">✓</span> {Ex} vai se sentir atraíd{o} e incapaz de resistir a você.</li>
+          <li><span class="ck">✓</span> {Ex} voltará para sua cama, desesperad{o} por você.</li>
+          <li><span class="ck">✓</span> Você terá uma confiança inabalável e uma conexão impossível de quebrar.</li>
+          <li><span class="ck">✓</span> {Ex} vai querer estar ao seu lado como nunca antes...</li>
+        </ul>
+        <h3 class="heading fs-sub2">Você está pronto para reconquistá-{la}?</h3>
+        <button class="btn-continue btn-green">Sim, quero {ex} de volta</button>
+      </div>
     `;
     wrap.querySelector('.btn-continue').innerHTML = t(wrap.querySelector('.btn-continue').textContent);
     wrap.querySelectorAll('.checklist li').forEach(li=> li.innerHTML = t(li.innerHTML));
