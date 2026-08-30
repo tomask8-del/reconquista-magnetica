@@ -606,7 +606,7 @@
         {e:'🏝️',l:'Onde se conheceram'},
         {e:'🎁',l:'Um objeto ou presente especial'}
       ] },
-    { type:'single', key:'tempo_juntos', q:'Como vocês costumavam <span class="hl">passar o tempo juntos?</span>',
+    { type:'single', key:'tempo_juntos', q:'Como vocês costumavam <span class="hl">passar o tempo juntos?</span>', qStyle:'line-height:1.6;',
       options:[
         {e:'🏡',l:'Mais em casa, tranquilos'},
         {e:'🧳',l:'Viajando, explorando lugares novos'},
@@ -716,7 +716,7 @@
   }
 
   function questionHeader(step){
-    return `<h2 class="heading">${t(step.q)}</h2>${step.sub ? `<p class="sub">${step.sub}</p>` : ''}`;
+    return `<h2 class="heading"${step.qStyle ? ` style="${step.qStyle}"` : ''}>${t(step.q)}</h2>${step.sub ? `<p class="sub">${step.sub}</p>` : ''}`;
   }
 
   function renderSingle(wrap, step){
