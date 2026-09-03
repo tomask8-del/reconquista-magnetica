@@ -1,3 +1,20 @@
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '249955749751662');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=249955749751662&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <meta charset="UTF-8" />
 <title>Reconquista Magnética</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -762,6 +779,21 @@
      RENDER ENGINE
      ============================================================ */
   const app = document.getElementById('app');
+
+  // Meta Pixel: dispara InitiateCheckout sempre que o usuário clica em qualquer CTA de checkout (Kiwify)
+  app.addEventListener('click', function(e){
+    var link = e.target.closest ? e.target.closest('a.btn-buy, a.cd-cta') : null;
+    if (link && typeof fbq === 'function'){
+      try{
+        fbq('track', 'InitiateCheckout', {
+          content_name: CONFIG.productName,
+          currency: 'BRL',
+          value: parseFloat(CONFIG.priceNew)
+        });
+      }catch(err){}
+    }
+  }, true);
+
   const progressFill = document.getElementById('qz-progress-fill');
   const progressWrap = document.getElementById('qz-progress');
 
@@ -778,8 +810,29 @@
     return `<div class="brand"><span class="dot"></span>${CONFIG.productName}</div>`;
   }
 
+  // Meta Pixel: eventos de progresso do funil (quiz -> pagina de vendas)
+  function trackFunnelStep(step, idx){
+    if (typeof fbq !== 'function') return;
+    try{
+      fbq('trackCustom', 'QuizStep', { step_index: idx, step_type: step.type, step_key: step.key || '' });
+      if (idx === 1){
+        // usuário escolheu o gênero e avançou: início real do quiz
+        fbq('track', 'Lead', { content_name: CONFIG.productName });
+      }
+      if (step.type === 'landing'){
+        // chegou na página de vendas (última etapa do funil)
+        fbq('track', 'ViewContent', {
+          content_name: CONFIG.productName,
+          currency: 'BRL',
+          value: parseFloat(CONFIG.priceNew)
+        });
+      }
+    }catch(e){}
+  }
+
   function render(){
     const step = FLOW[state.i];
+    trackFunnelStep(step, state.i);
     updateProgress();
     app.className = (step.type === 'landing') ? 'wide' : [step.topAlign ? 'top-align' : '', step.compact ? 'compact-app' : ''].filter(Boolean).join(' ');
     app.innerHTML = '';
